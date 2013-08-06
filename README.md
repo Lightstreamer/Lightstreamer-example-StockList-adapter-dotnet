@@ -83,4 +83,4 @@ On the other hand, two different examples of manual launch of the remote process
 
 # Lightstreamer Compatibility Notes #
 
-- Compatible with Lightstreamer SDK for .NET Adapters since 5.1
+- Compatible with Lightstreamer SDK for .NET Adapters since 1.8
