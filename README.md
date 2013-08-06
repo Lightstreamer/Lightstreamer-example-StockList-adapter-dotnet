@@ -55,7 +55,7 @@ So a line like this:
 ```
 should become like this:
 ```js
-  sharingClient.connectionSharing.enableSharing(RemoteStockListConnection","ls/","SHARE_SESSION", true);
+  sharingClient.connectionSharing.enableSharing("RemoteStockListConnection","ls/","SHARE_SESSION", true);
 ```
 The StockListDemo web front-end is now ready to be opened. The front-end will now get data from the newly installed Adapter Set.</i>
 
