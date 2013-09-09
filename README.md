@@ -15,11 +15,10 @@ Check out the sources for further explanations.
 # Build #
 
 If you want to skip the build process of this Adapter please note that in the [deploy release](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet/releases) of this project you can find the "deploy.zip" file that contains a ready-made deployment resource for the Lightstreamer server.
-Otherwise to recompile the provided sources, you just need to create a project for a library target, then include the sources and include references to the Lightstreamer .NET Adapter Server library binaries and Log4net library binaries (see DOCS-SDKs/sdk_adapter_dotnet/lib/ folder of your Lighstreamer home).<br>
+Otherwise to recompile the provided sources, you just need to create a project for a library target, name it "DotNetStockListDemo_N2", then include the sources ("src/src_data_adapter") and include references to the Lightstreamer .NET Adapter Server library binaries and Log4net library binaries (see DOCS-SDKs/sdk_adapter_dotnet/lib/ folder of your Lighstreamer home).<br>
 
 ## Build the Stand-alone launcher ##
-To recompile the provided source, you just need to create a project for a console application target, then include the source and include references to the Lightstreamer .NET Adapter Server library binaries (see above), the Log4net library binaries (see
-above) and .NET Stock-List Demo Data Adapter binaries you have got from the above source code. Make sure that the entry point of the executable is the ServerMain class.
+To recompile the provided source, you just need to create a project for a console application target, name it "DotNetStockListDemoLauncher_N2", then include the source ("src/src_standalone_launcher")and include references to the Lightstreamer .NET Adapter Server library binaries (see above), the Log4net library binaries (see above) and .NET Stock-List Demo Data Adapter binaries you have got from the above source code. Make sure that the entry point of the executable is the ServerMain class.
 
 # Deploy #
 
