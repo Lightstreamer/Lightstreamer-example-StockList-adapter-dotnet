@@ -51,8 +51,10 @@ namespace Lightstreamer.Adapters.StockListDemo {
 			if (args.Length == 0) Help();
 			
 			_log.Info("Lightstreamer StockListDemo .NET Adapter Standalone Server starting...");
-		
-			IDictionary parameters= new Hashtable();
+
+			Server.SetLoggerProvider(new Log4NetLoggerProviderWrapper());
+
+			IDictionary parameters = new Hashtable();
 			string host= null;
 			int rrPortMD= -1;
 			int rrPortD= -1;
