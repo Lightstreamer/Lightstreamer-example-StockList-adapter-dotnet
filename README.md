@@ -9,8 +9,11 @@ The application is divided into 4 main classes.
 * <b>LiteralBasedProvider.cs</b>: this is a C#/.NET implementation of the [LiteralBasedProvider Metadata Adapter](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java). It inherits from the IMetadataProvider interface. Use it as a startingpoint to implement your custom metadata adapter.<br>
 * <b>ExternalFeed.cs</b>: this component simulates an external data feed that supplies quote values for all the stocks needed for the demos.
 * <b>StandaloneLauncher.cs</b>: this is a stand-alone executable that launches both the Data Adapter and the Metadata Adapter for the .NET Stock-List Demo example. It redirects sockets connections from Lightstreamer to the .NET Servers implemented in the DLL and does not rely on the .NET Server wrapper provided.<br>
+* <b>Log4NetLogging.cs</b>: used by the stand-alone executable to forward the log produced by the SDK library to the application logging system, based on log4net.<br>
 
 Check out the sources for further explanations.
+
+NOTE: At this stage, the demo is based on a SDK version still to be released. Refer to the "for lightstreamer 5.1.1" release for a demo version suitable for building and deploying.
 
 # Build #
 
