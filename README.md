@@ -3,25 +3,25 @@
 This project contains the source code and all the resources needed to install a .NET version of the StockListDemo Data and Metadata Adapters.
 
 ## Dig the code ##
-The application is divided into 4 main classes.
+The application is divided into 5 main classes.
 
-* <b>StockList.cs</b>: this is a C#/.NET porting of the [Stock-List Demo Data Adapter](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-java). It inherits from the IDataProvider interface and calls back Lightstreamer through the IItemEventListener interface. Use it as a starting point to implement your custom data adapter.<br>
-* <b>LiteralBasedProvider.cs</b>: this is a C#/.NET implementation of the [LiteralBasedProvider Metadata Adapter](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java). It inherits from the IMetadataProvider interface. Use it as a startingpoint to implement your custom metadata adapter.<br>
+* <b>StockList.cs</b>: this is a C#/.NET porting of the [Stock-List Demo Data Adapter](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-java). It inherits from the <i>IDataProvider</i> interface and calls back Lightstreamer through the IItemEventListener interface. Use it as a starting point to implement your custom data adapter.<br>
+* <b>LiteralBasedProvider.cs</b>: this is a C#/.NET implementation of the [LiteralBasedProvider Metadata Adapter](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java). It inherits from the IMetadataProvider interface. Use it as a starting point to implement your custom metadata adapter.<br>
 * <b>ExternalFeed.cs</b>: this component simulates an external data feed that supplies quote values for all the stocks needed for the demos.
-* <b>StandaloneLauncher.cs</b>: this is a stand-alone executable that launches both the Data Adapter and the Metadata Adapter for the .NET Stock-List Demo example. It redirects sockets connections from Lightstreamer to the .NET Servers implemented in the DLL and does not rely on the .NET Server wrapper provided.<br>
-* <b>Log4NetLogging.cs</b>: used by the stand-alone executable to forward the log produced by the SDK library to the application logging system, based on log4net.<br>
+* <b>StandaloneLauncher.cs</b>: this is a stand-alone executable that launches both the Data Adapter and the Metadata Adapter for the .NET Stock-List Demo example. It redirects sockets connections from Lightstreamer to the .NET Servers implemented in the LS .NET SDK library and does not rely on the .NET Server wrapper provided.<br>
+* <b>Log4NetLogging.cs</b>: used by the stand-alone executable to forward the log produced by the LS .NET SDK library to the application logging system, based on log4net.<br>
 
-Check out the sources for further explanations.
+Check out the sources for further explanations.<br>
 
-<b>NOTE: At this stage, the demo is based on a SDK version still to be released. Refer to the "for_Lightstreamer_5.1.1" tag for a demo version suitable for building and deploying.</b>
+<b>NOTE: At this stage, the demo is based on a version of LS .NET SDK that is still to be released. Skip the notes below and refer to the "for_Lightstreamer_5.1.1" tag for a demo version suitable for building and deploying.</b>
 
 # Build #
 
-If you want to skip the build process of this Adapter please note that in the [deploy release](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet/releases) of this project you can find the "deploy.zip" file that contains a ready-made deployment resource for the Lightstreamer server.
-Otherwise to recompile the provided sources, you just need to create a project for a library target, name it "DotNetStockListDemo_N2", then include the sources ("src/src_data_adapter") and include references to the Lightstreamer .NET Adapter Server library binaries and Log4net library binaries (see DOCS-SDKs/sdk_adapter_dotnet/lib/ folder of your Lighstreamer home).<br>
+If you want to skip the build process of this Adapter please note that in the [deploy release](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet/releases) of this project you can find the "deploy.zip" file that contains a ready-made deployment resource for the Lightstreamer server.<br>
+Otherwise to recompile the provided sources, you just need to create a project for a library target, name it "DotNetStockListDemo_N2", then include the sources ("src/src_data_adapter") and include references to the Lightstreamer .NET Adapter Server library binaries (see DOCS-SDKs/sdk_adapter_dotnet/lib/ folder of your Lighstreamer home) and suitable Log4net library binaries.<br>
 
 ## Build the Stand-alone launcher ##
-To recompile the provided source, you just need to create a project for a console application target, name it "DotNetStockListDemoLauncher_N2", then include the source ("src/src_standalone_launcher")and include references to the Lightstreamer .NET Adapter Server library binaries (see above), the Log4net library binaries (see above) and .NET Stock-List Demo Data Adapter binaries you have got from the above source code. Make sure that the entry point of the executable is the ServerMain class.
+To recompile the provided source, you just need to create a project for a console application target, name it "DotNetStockListDemoLauncher_N2", then include the source ("src/src_standalone_launcher") and include references to the Lightstreamer .NET Adapter Server library binaries (see above), the Log4net library binaries (see above) and .NET Stock-List Demo Data Adapter binaries you have got from the above source code. Make sure that the entry point of the executable is the ServerMain class.
 
 # Deploy #
 
@@ -30,7 +30,7 @@ To recompile the provided source, you just need to create a project for a consol
 To test the .NET Adapter follow this simple process below.
 The instructions provided refer to the "Deployment" directory you can find in the "deploy.zip" file of [latest release](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet/releases).
 
-1. Make sure you have a working installation of Lightstreamer Stock-List Demo.
+1. Make sure you have a working installation of [Lightstreamer Stock-List Demo](https://github.com/Weswit/Lightstreamer-example-StockList-client-javascript).
 2. Make sure that Lightstreamer Server is not running.
 3. Plug the new Adapter Set into the Server. Just copy the "DotNetStockList" directory and all of its files to the "adapters" subdirectory in your Lightstreamer Server installation.<br>
 3.1. Alternatively, copy the Deployment_LS(robust)\DotNetStockList directory and all of its files into "adapters". This Adapter Set demonstrates the provided "robust" versions of the standard Proxy Data and Metadata Adapters. The robust Proxy Data Adapter can handle the case in which a Remote Data Adapter is missing or fails, by suspending the data flow and trying to connect to a new Remote Data Adapter instance. The robust Proxy Metadata Adapter can handle the case in which a Remote Metadata Adapter is missing or fails, by temporarily denying all client requests and trying to connect to a new Remote Data Adapter instance. See the comments embedded in "adapters.xml" for details. Note that this extended Adapter Set also requires that the client is able to manage the case of missing data. Currently, only the [StockListDemo](https://github.com/Weswit/Lightstreamer-example-StockList-client-javascript#stocklist-demo) and the [Framed StockListDemo](https://github.com/Weswit/Lightstreamer-example-StockList-client-javascript#framed-stocklist-demo) front-ends have such ability.
