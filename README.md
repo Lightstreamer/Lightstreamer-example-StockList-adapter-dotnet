@@ -13,7 +13,7 @@ The application is divided into 4 main classes.
 
 Check out the sources for further explanations.
 
-NOTE: At this stage, the demo is based on a SDK version still to be released. Refer to the "for lightstreamer 5.1.1" release for a demo version suitable for building and deploying.
+<b>NOTE: At this stage, the demo is based on a SDK version still to be released. Refer to the "for_Lightstreamer_5.1.1" tag for a demo version suitable for building and deploying.</b>
 
 # Build #
 
