@@ -82,6 +82,12 @@ On the other hand, two different examples of manual launch of the remote process
 * [Lightstreamer - Stock-List Demo - PhoneGap Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-phonegap)
 * [Lightstreamer - Portfolio Demo - HTML Client](https://github.com/Weswit/Lightstreamer-example-Portfolio-client-javascript)
 * [Lightstreamer - Portfolio Demo - Dojo Toolkit Client](https://github.com/Weswit/Lightstreamer-example-Portfolio-client-dojo)
+* [Lightstreamer - Basic Stock-List Demo - jQuery (jqGrid) Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-jquery)
+* [Lightstreamer - Basic Stock-List Demo - Java SE Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-java)
+* [Lightstreamer - Basic Stock-List Demo - .NET Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-dotnet)
+* [Lightstreamer - Basic Stock-List Demo - Flex Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-flex)
+* [Lightstreamer - Basic Stock-List Demo - Flash Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-flash)
+* [Lightstreamer - Basic Stock-List Demo - BlackBerry (WebWorks) Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-blackberry10-html)
 
 ## Related projects ##
 * [Lightstreamer - Stock-List Demo - Java SE Adapter](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-java)
