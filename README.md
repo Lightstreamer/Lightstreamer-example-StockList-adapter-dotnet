@@ -1,4 +1,5 @@
 # Lightstreamer - Stock-List Demo - .NET Adapter #
+<!-- START DESCRIPTION Stock-List Demo -->
 
 This project contains the source code and all the resources needed to install a .NET version of the Stock-List Demo Data and Metadata Adapters.
 
@@ -15,6 +16,7 @@ Check out the sources for further explanations.<br>
 
 <b>NOTE: At this stage, the demo is based on a version of LS .NET SDK that is still to be released. Skip the notes below and refer to the "for_Lightstreamer_5.1.1" tag for a demo version suitable for building and deploying.</b>
 
+<!-- END DESCRIPTION Stock-List Demo -->
 # Build #
 
 If you want to skip the build process of this Adapter please note that in the [deploy release](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet/releases) of this project you can find the "deploy.zip" file that contains a ready-made deployment resource for the Lightstreamer server.<br>
