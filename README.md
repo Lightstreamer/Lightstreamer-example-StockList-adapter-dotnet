@@ -3,7 +3,7 @@
 
 This project contains the source code and all the resources needed to install a .NET version of the Stock-List Demo Data and Metadata Adapters.
 
-## Dig the code ##
+## Dig the Code ##
 The application is divided into 5 main classes.
 
 * <b>StockList.cs</b>: this is a C#/.NET porting of the [Lightstreamer - Stock-List Demo - Java Adapter](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-java). It inherits from the <i>IDataProvider</i> interface and calls back Lightstreamer through the IItemEventListener interface. Use it as a starting point to implement your custom data adapter.<br>
@@ -27,7 +27,7 @@ To recompile the provided source, you just need to create a project for a consol
 
 # Deploy #
 
-![General Architecture](generalarchitecture.png)
+![General Architecture](generalarchitecture_new.png)
 
 To test the .NET Adapter follow this simple process below.
 The instructions provided refer to the "Deployment" directory you can find in the "deploy.zip" file of [latest release](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet/releases).
@@ -73,7 +73,7 @@ On the other hand, two different examples of manual launch of the remote process
   
 # See Also #
 
-## Clients using this Adapter ##
+## Clients Using This Adapter ##
 
 <!-- START RELATED_ENTRIES -->
 
@@ -91,7 +91,7 @@ On the other hand, two different examples of manual launch of the remote process
 
 <!-- END RELATED_ENTRIES -->
 
-## Related projects ##
+## Related Projects ##
 * [Lightstreamer - Stock-List Demo - Java Adapter](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-java)
 * [Lightstreamer - Reusable Metadata Adapters - Java Adapter](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java)
 
