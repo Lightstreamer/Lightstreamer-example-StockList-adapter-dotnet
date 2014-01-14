@@ -90,10 +90,13 @@ On the other hand, two different examples of manual launch of the remote process
 * [Lightstreamer - Basic Stock-List Demo - BlackBerry (WebWorks) Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-blackberry10-html)
 
 <!-- END RELATED_ENTRIES -->
-
 ## Related Projects ##
-* [Lightstreamer - Stock-List Demo - Java Adapter](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-java)
 * [Lightstreamer - Reusable Metadata Adapters - Java Adapter](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java)
+* [Lightstreamer - Portfolio Demo - Java Adapter](https://github.com/Weswit/Lightstreamer-example-Portfolio-adapter-java)
+
+## The Same Demo Adapter With Other Technologies ##
+* [Lightstreamer - Stock-List Demo - Java Adapter](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-java)
+* [Lightstreamer - Stock-List Demo - Java (JMS) Adapter](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-JMS)
 
 # Lightstreamer Compatibility Notes #
 
