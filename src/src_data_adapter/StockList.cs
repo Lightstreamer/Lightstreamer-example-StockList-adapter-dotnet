@@ -87,6 +87,15 @@ namespace Lightstreamer.Adapters.StockListDemo.Data {
 			return true;
 		}
 	
+		// never used in the demo, just showing the feature
+		public void ClearStatus() {
+			lock (_subscribedItems) {
+				foreach (string itemName in _subscribedItems.Keys) {
+					_listener.ClearSnapshot(itemName);
+				}
+			}
+		}
+
 		// ////////////////////////////////////////////////////////////////////////
 		// IExternalFeedListener methods
 
