@@ -5,7 +5,7 @@ The Stock-List demos simulate a market data feed and front-end for stock quotes.
 
 This project contains the source code and all the resources needed to install a .NET version of the Stock-List Demo Data Adapter and Metadata Adapters.
 
-As example of a client using this adapter, you may refer to the [Lightstreamer - Basic Stock-List Demo - HTML Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-javascript#basic-stock-list-demo---html-client) and view the corresponding [Live Demo](http://demos.lightstreamer.com/StockListDemo_Basic).
+As example of [Clients Using This Adapter](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet#clients-using-this-adapter), you may refer to the [Lightstreamer - Basic Stock-List Demo - HTML Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-javascript#basic-stock-list-demo---html-client) and view the corresponding [Live Demo](http://demos.lightstreamer.com/StockListDemo_Basic).
 
 ## Details
 
