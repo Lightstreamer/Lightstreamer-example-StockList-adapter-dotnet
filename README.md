@@ -62,24 +62,26 @@ Please refer to [.NET Adapter Development](http://www.lightstreamer.com/latest/L
 The standard type of configuration is shown, where the process which runs the Remote Adapters is manually launched beside Lightstreamer Server.
 On the other hand, two different examples of manual launch of the remote process are shown, one based on the provided Remote Server and one based on a custom server program, also shown.
 
-
 ## Build 
 
-To build your own version of `DotNetStockListDemo_N2`, instead of using the one provided in the `deploy.zip` file, follow these steps.
+### Build the .NET Stock-List Demo Data Adapter
+
+To build your own version of `DotNetStockListDemo_N2.dll`, instead of using the one provided in the `deploy.zip` file, follow these steps.
 * Download this project.
 * Create a project for a library target and name it "DotNetStockListDemo_N2",
 * Include in the project the sources `src/src_data_adapter`.
-* Get the `DotNetAdapter_N2.dll`, `DotNetAdapter_N2.pdb`, and `log4net.dll` files from the `DOCS-SDKs/sdk_adapter_dotnet/lib` folder of the latest [Lightstreamer 6.0 (Alpha)](http://www.lightstreamer.com/download) distribution, and copy them into the `lib` directory.
-* Include in the project the references to the Lightstreamer .NET Adapter Server library binaries and the Log4net library binaries from the `lib` folder.
+* Get the Lightstreamer .NET Adapter Server library `DotNetAdapter_N2.dll` and the Log4net library `log4net.dll` files from the `DOCS-SDKs/sdk_adapter_dotnet/lib` folder of the latest [Lightstreamer 6.0 (Alpha)](http://www.lightstreamer.com/download) distribution, and copy them into the `lib` directory.
+* Include in the project the references to `DotNetAdapter_N2.dll` and `log4net.dll` from the `lib` folder.
+* Build Solution
 
 ### Build the Stand-Alone Launcher
 To build your own version of the Stand-Alone Launcher, follow these steps.
 * Create a project for a console application target and name it "DotNetStockListDemoLauncher_N2".
 * Include in the project the source `src/src_standalone_launcher`
-* Include references to the Lightstreamer .NET Adapter Server library binaries (see above), the Log4net library binaries (see above) and .NET Stock-List Demo Data Adapter binaries you have got from the above source code. 
+* Include references to the Lightstreamer .NET Adapter Server library binaries (see above), the Log4net library binaries (see above) and .NET Stock-List Demo Data Adapter binaries you have built in the previous step. 
 * Make sure that the entry point of the executable is the ServerMain class.
+* Build Solution
 
-  
 ## See Also
 
 ### Clients Using This Adapter
