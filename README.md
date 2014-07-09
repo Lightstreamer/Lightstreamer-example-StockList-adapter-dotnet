@@ -33,6 +33,7 @@ Check out the sources for further explanations.
 
 ## Install
 
+If you want to install a version of this demo in your local Lightstreamer server, follow these steps:
 * Download *Lightstreamer Server 6.0* (Lightstreamer Server comes with a free non-expiring demo license for 20 connected users) from [Lightstreamer Download page](http://www.lightstreamer.com/download.htm), and install it, as explained in the `GETTING_STARTED.TXT` file in the installation home directory.
 * Get the `deploy.zip` file of the [latest release](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet/releases) and unzip it
 * Plug the Proxy Data Adapter and the Proxy MetaData Adapter into the Server: go to the `Deployment_LS` folder and copy the `DotNetStockList` directory and all of its files to the `adapters` folder of your Lightstreamer Server installation.
@@ -66,7 +67,7 @@ On the other hand, two different examples of manual launch of the remote process
 
 ### Build the .NET Stock-List Demo Data Adapter
 
-To build your own version of `DotNetStockListDemo_N2.dll`, instead of using the one provided in the `deploy.zip` file, follow these steps.
+To build your own version of `DotNetStockListDemo_N2.dll`, instead of using the one provided in the `deploy.zip` file from the [Install](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet#install) section above, follow these steps.
 * Download this project.
 * Create a project for a library target and name it "DotNetStockListDemo_N2",
 * Include in the project the sources `src/src_data_adapter`.
