@@ -14,8 +14,6 @@ Lightstreamer Server exposes native Java Adapter interfaces. The .NET interfaces
 
 ![General Architecture](generalarchitecture_new.png)
 
-Please refer to [General Concepts](http://www.lightstreamer.com/latest/Lightstreamer_Allegro-Presto-Vivace_5_1_Colosseo/Lightstreamer/DOCS-SDKs/General%20Concepts.pdf) for more details about Lightstreamer Adapters.
-
 You'll find more details about the *Adapter Remoting Infrastructure for .NET* at [.NET Interfaces](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-dotnet/blob/master/README.md#net-interfaces) in the [Lightstreamer - "Hello World" Tutorial - .NET Adapter](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-dotnet) project.
 
 ### Dig the Code
