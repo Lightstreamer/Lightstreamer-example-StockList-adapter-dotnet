@@ -74,15 +74,15 @@ To build your own version of `DotNetStockListDemo_N2.dll`, instead of using the 
 * Download this project.
 * Create a project for a library target and name it "DotNetStockListDemo_N2",
 * Include in the project the sources `src/src_data_adapter`.
-* Get the Lightstreamer .NET Adapter Server library `DotNetAdapter_N2.dll` and the Log4net library `log4net.dll` files from the `DOCS-SDKs/sdk_adapter_dotnet/lib` folder of the latest [Lightstreamer 6.0 (Beta)](http://download.lightstreamer.com/#next) distribution, and copy them into the `lib` directory.
-* Include in the project the references to `DotNetAdapter_N2.dll` and `log4net.dll` from the `lib` folder.
+* Get the Lightstreamer .NET Adapter Server library `DotNetAdapter_N2.dll` file from the `DOCS-SDKs/sdk_adapter_dotnet/lib` folder of the latest [Lightstreamer 6.0 (Beta)](http://download.lightstreamer.com/#next) distribution, and copy them into the `lib` directory.
+* Include in the project the references to `DotNetAdapter_N2.dll` from the `lib` folder.
 * Build Solution
 
 ### Build the Stand-Alone Launcher
 To build your own version of the Stand-Alone Launcher, follow these steps.
 * Create a project for a console application target and name it "DotNetStockListDemoLauncher_N2".
 * Include in the project the source `src/src_standalone_launcher`
-* Include references to the Lightstreamer .NET Adapter Server library binaries (see above), the Log4net library binaries (see above) and .NET Stock-List Demo Data Adapter binaries you have built in the previous step. 
+* Include references to the Lightstreamer .NET Adapter Server library binaries (see above) and .NET Stock-List Demo Data Adapter binaries you have built in the previous step. 
 * Make sure that the entry point of the executable is the ServerMain class.
 * Build Solution
 
