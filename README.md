@@ -30,7 +30,7 @@ The application is divided into 5 main classes.
 
 Check out the sources for further explanations.
 
-**NOTE: At this stage, the demo is based on a version of LS .NET SDK that is currently available only as a prerelease. Skip the notes below and refer to the "for_Lightstreamer_5.1.1" tag for a demo version suitable for building and deploying.**
+**NOTE: At this stage, the demo is based on a version of LS .NET SDK that is currently available only as a prerelease. Skip the notes below and refer to the [for_Lightstreamer_5.x](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet/tree/for_Lightstreamer_5.1.1) tag for a demo version suitable for building and deploying.**
 
 <!-- END DESCRIPTION lightstreamer-example-stocklist-adapter-dotnet -->
 
