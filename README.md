@@ -108,5 +108,5 @@ Network Protocol Specification](http://www.lightstreamer.com/latest/Lightstreame
 
 ## Lightstreamer Compatibility Notes
 
-- Compatible with Lightstreamer SDK for .NET Adapters since 1.8
+- Compatible with Lightstreamer SDK for .NET Adapters version 1.8
 - For a version of this example compatible with Lightstreamer SDK for .NET Adapters version 1.7, please refer to [this tag](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet/tree/for_Lightstreamer_5.1.1).
