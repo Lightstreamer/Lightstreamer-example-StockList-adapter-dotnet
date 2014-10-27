@@ -18,17 +18,19 @@ You'll find more details about the *SDK for .NET Adapters* at [.NET Interfaces](
 
 ### Dig the Code
 
-This project includes the implementation of the [IDataProvider](http://www.lightstreamer.com/docs/adapter_dotnet_api/Lightstreamer_Interfaces_Data_IDataProvider.html) interface and the [MetadataProviderAdapter](http://www.lightstreamer.com/docs/adapter_dotnet_api/Lightstreamer_Interfaces_Metadata_MetadataProviderAdapter.html) interface for the *Stock-List Demo*. 
+This project includes the implementation of the [IDataProvider](http://www.lightstreamer.com/docs/adapter_dotnet_api/Lightstreamer_Interfaces_Data_IDataProvider.html) interface and the [IMetadataProvider](http://www.lightstreamer.com/docs/adapter_dotnet_api/Lightstreamer_Interfaces_Metadata_IMetadataProvider.html) interface for the *Stock-List Demo*. 
 
-The application is divided into 5 main classes.
+The application is divided into 4 main classes.
 
 * `StockList.cs`: this is a C#/.NET porting of the [Lightstreamer - Stock-List Demo - Java Adapter](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-java). It inherits from the *IDataProvider* interface and calls back Lightstreamer through the *IItemEventListener* interface. Use it as a starting point to implement your custom data adapter.
-* `LiteralBasedProvider.cs`: this is a C#/.NET implementation of the *LiteralBasedProvider* Metadata Adapter in  [Lightstreamer - Reusable Metadata Adapters - Java Adapters](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java). It inherits from the *IMetadataProvider* interface. Use it as a starting point to implement your custom metadata adapter.
 * `ExternalFeed.cs`: this component simulates an external data feed that supplies quote values for all the stocks needed for the demos.
 * `StandaloneLauncher.cs`: this is a stand-alone executable that launches both the Data Adapter and the Metadata Adapter for the .NET Stock-List Demo example. It redirects sockets connections from Lightstreamer to the .NET Servers implemented in the LS .NET SDK library and does not rely on the .NET Server wrapper provided.
 * `Log4NetLogging.cs`: used by the stand-alone executable to forward the log produced by the LS .NET SDK library to the application logging system, based on log4net.<br>
 
 Check out the sources for further explanations.
+
+The Metadata Adapter functionalities are absolved by the `LiteralBasedProvider`, a simple Metadata Adapter already included in the .NET Adapter SDK binaries, which is enough for all demo clients.
+See also [Lightstreamer - Reusable Metadata Adapters - .NET Adapter](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-dotnet).
 
 **NOTE: At this stage, the demo is based on a version of LS .NET SDK that is currently available only as a pre-release. Skip the notes below and refer to the [for_Lightstreamer_5.x](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet/tree/for_Lightstreamer_5.1.1) tag for a demo version suitable for building and deploying.**
 
