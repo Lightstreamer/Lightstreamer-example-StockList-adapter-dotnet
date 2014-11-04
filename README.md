@@ -32,7 +32,7 @@ Check out the sources for further explanations.
 The Metadata Adapter functionalities are absolved by the `LiteralBasedProvider`, a simple Metadata Adapter already included in the .NET Adapter SDK binaries, which is enough for all demo clients.
 See also [Lightstreamer - Reusable Metadata Adapters - .NET Adapter](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-dotnet).
 
-**NOTE: At this stage, the demo is based on a version of LS .NET SDK that is currently available only as a pre-release. Skip the notes below and refer to the [for_Lightstreamer_5.x](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet/tree/for_Lightstreamer_5.1.1) tag for a demo version suitable for building and deploying.**
+**NOTE: At this stage, the demo is based on a version of LS .NET SDK that is currently available only as a pre-release. Skip the notes below and refer to the [for_Lightstreamer_5.1](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet/tree/for_Lightstreamer_5.1) tag for a demo version suitable for building and deploying.**
 
 <!-- END DESCRIPTION lightstreamer-example-stocklist-adapter-dotnet -->
 
