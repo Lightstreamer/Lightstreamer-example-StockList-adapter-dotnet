@@ -66,7 +66,8 @@ namespace Lightstreamer.Adapters.StockListDemo.Data {
 			lock (_subscribedItems) {
 				if (_subscribedItems.Contains(itemName)) return;
 
-				_subscribedItems[itemName]= false;
+                SubscriptionInfo si = new SubscriptionInfo(false, true);
+				_subscribedItems[itemName]= si;
 			}
 			_myFeed.SendCurrentValues(itemName);
 		}
@@ -76,7 +77,13 @@ namespace Lightstreamer.Adapters.StockListDemo.Data {
 				throw new SubscriptionException("Unexpected item: " + itemName);
 
 			lock (_subscribedItems) {
-				_subscribedItems.Remove(itemName);
+                SubscriptionInfo si = (SubscriptionInfo)_subscribedItems[itemName];
+                if (si != null) {
+                    _subscribedItems.Remove(itemName);
+                    lock (si) {
+                        si.stopSubscription();
+                    }
+                }
 			}
 		}
 
@@ -102,15 +109,21 @@ namespace Lightstreamer.Adapters.StockListDemo.Data {
 		public void OnEvent(string itemName, 
 			IDictionary currentValues,
 			bool isSnapshot) {
+
+            SubscriptionInfo si;
 			lock (_subscribedItems) {
 				if (!_subscribedItems.Contains(itemName)) return;
 
-				bool started = (bool) _subscribedItems[itemName];
+				si = (SubscriptionInfo) _subscribedItems[itemName];
+            }
+
+            lock (si) {
+                bool started = si.getSnapshotReceived();
 				if (!started) {
 					if (!isSnapshot) 
 						return;
-					
-					_subscribedItems[itemName]= true;
+
+                    si.setSnapshotReceived();
 				} 
 				else {
 					if (isSnapshot) {
@@ -129,10 +142,45 @@ namespace Lightstreamer.Adapters.StockListDemo.Data {
                 // related with the first Subscribe call;
                 // this case still leads to a perfectly consistent update flow,
                 // in this scenario, so no checks are inserted to detect the case
-
-                _listener.Update(itemName, currentValues, isSnapshot);
+                if (si.isStillSubscribed()) {
+                    _listener.Update(itemName, currentValues, isSnapshot);
+                }
 			}
 		}
+
+        // Manages the current state of the subscription 
+        // for a single Item.
+        private class SubscriptionInfo
+        {
+            bool snapshotReceived;
+            public void setSnapshotReceived()
+            {
+                this.snapshotReceived = true;
+            }
+
+            public Boolean getSnapshotReceived()
+            {
+                return snapshotReceived;
+            }
+
+            bool stillSubscribed;
+
+            public bool isStillSubscribed()
+            {
+                return this.stillSubscribed;
+            }
+
+            public SubscriptionInfo(bool snapshotReceived, bool isStillSubscribed)
+            {
+                this.snapshotReceived = snapshotReceived;
+                this.stillSubscribed = isStillSubscribed;
+            }
+
+            public void stopSubscription()
+            {
+                this.stillSubscribed = false;
+            }
+        }
 	}
-	
+
 }
