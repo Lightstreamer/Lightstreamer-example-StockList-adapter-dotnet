@@ -32,14 +32,12 @@ Check out the sources for further explanations.
 The Metadata Adapter functionalities are absolved by the `LiteralBasedProvider`, a simple Metadata Adapter already included in the .NET Adapter SDK binaries, which is enough for all demo clients.
 See also [Lightstreamer - Reusable Metadata Adapters - .NET Adapter](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-dotnet).
 
-**NOTE: At this stage, the demo is based on a version of LS .NET SDK that is currently available only as a pre-release. Skip the notes below and refer to the [for_Lightstreamer_5.1](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet/tree/for_Lightstreamer_5.1) tag for a demo version suitable for building and deploying.**
-
 <!-- END DESCRIPTION lightstreamer-example-stocklist-adapter-dotnet -->
 
 ## Install
 
 If you want to install a version of this demo in your local Lightstreamer server, follow these steps:
-* Download *Lightstreamer Server 6.0* (Lightstreamer Server comes with a free non-expiring demo license for 20 connected users) from [Lightstreamer Download page](http://www.lightstreamer.com/download.htm), and install it, as explained in the `GETTING_STARTED.TXT` file in the installation home directory.
+* Download the [latest Lightstreamer distribution](http://download.lightstreamer.com/#current) (Lightstreamer Server comes with a free non-expiring demo license for 20 connected users) from [Lightstreamer Download page](http://www.lightstreamer.com/download.htm), and install it, as explained in the `GETTING_STARTED.TXT` file in the installation home directory.
 * Get the `deploy.zip` file of the [latest release](https://github.com/Weswit/Lightstreamer-example-StockList-adapter-dotnet/releases) and unzip it
 * Plug the Proxy Data Adapter and the Proxy MetaData Adapter into the Server: go to the `Deployment_LS` folder and copy the `DotNetStockList` directory and all of its files to the `adapters` folder of your Lightstreamer Server installation.
 * Alternatively, you may plug the **robust** versions of the Proxy Data Adapter and the Proxy MetaData Adapter: go to the `Deployment_LS(robust)` folder and copy the `DotNetStockList` directory and all of its files into `adapters`. This Adapter Set demonstrates the provided "robust" versions of the standard Proxy Data and Metadata Adapters. The robust Proxy Data Adapter can handle the case in which a Remote Data Adapter is missing or fails, by suspending the data flow and trying to connect to a new Remote Data Adapter instance. The robust Proxy Metadata Adapter can handle the case in which a Remote Metadata Adapter is missing or fails, by temporarily denying all client requests and trying to connect to a new Remote Data Adapter instance. See the comments embedded in `adapters.xml` for details. Note that this extended Adapter Set also requires that the client is able to manage the case of missing data. Currently, only the [Lightstreamer - Stock-List Demo - HTML Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-javascript#stocklist-demo) and the [Lightstreamer - Framed Stock-List Demo - HTML Client](https://github.com/Weswit/Lightstreamer-example-StockList-client-javascript#framed-stocklist-demo) front-ends have such ability.
@@ -74,7 +72,7 @@ To build your own version of `DotNetStockListDemo_N2.dll`, instead of using the 
 * Download this project.
 * Create a project for a library target and name it "DotNetStockListDemo_N2",
 * Include in the project the sources `src/src_data_adapter`.
-* Get the Lightstreamer .NET Adapter Server library `DotNetAdapter_N2.dll` file from the `DOCS-SDKs/sdk_adapter_dotnet/lib` folder of the latest [Lightstreamer 6.0 (Beta)](http://download.lightstreamer.com/#next) distribution, and copy it into the `lib` directory.
+* Get the Lightstreamer .NET Adapter Server library `DotNetAdapter_N2.dll` file from the `DOCS-SDKs/sdk_adapter_dotnet/lib` folder of the [latest Lightstreamer distribution](http://download.lightstreamer.com/#current), and copy it into the `lib` directory.
 * Include in the project the references to `DotNetAdapter_N2.dll` from the `lib` folder.
 * Build Solution
 
