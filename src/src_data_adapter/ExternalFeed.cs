@@ -1,7 +1,7 @@
 #region License
 /*
  *
- * Copyright 2013 Weswit s.r.l.
+ * Copyright (c) Lightstreamer Srl
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
