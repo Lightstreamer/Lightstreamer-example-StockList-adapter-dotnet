@@ -42,7 +42,7 @@ If you want to install a version of this demo in your local Lightstreamer server
 * Plug the Proxy Data Adapter and the Proxy MetaData Adapter into the Server: go to the `Deployment_LS` folder and copy the `DotNetStockList` directory and all of its files to the `adapters` folder of your Lightstreamer Server installation.
 * Alternatively, you may plug the **robust** versions of the Proxy Data Adapter and the Proxy MetaData Adapter: go to the `Deployment_LS(robust)` folder and copy the `DotNetStockList` directory and all of its files into `adapters`. This Adapter Set demonstrates the provided "robust" versions of the standard Proxy Data and Metadata Adapters. The robust Proxy Data Adapter can handle the case in which a Remote Data Adapter is missing or fails, by suspending the data flow and trying to connect to a new Remote Data Adapter instance. The robust Proxy Metadata Adapter can handle the case in which a Remote Metadata Adapter is missing or fails, by temporarily denying all client requests and trying to connect to a new Remote Data Adapter instance. See the comments embedded in the generic `adapters.xml` file template, `DOCS-SDKs/adapter_remoting_infrastructure/doc/adapter_robust_conf_template/adapters.xml`, for details. Note that this extended Adapter Set also requires that the client is able to manage the case of missing data. Currently, only the [Lightstreamer - Stock-List Demo - HTML Client](https://github.com/Lightstreamer/Lightstreamer-example-StockList-client-javascript#stocklist-demo) and the [Lightstreamer - Framed Stock-List Demo - HTML Client](https://github.com/Lightstreamer/Lightstreamer-example-StockList-client-javascript#framed-stocklist-demo) front-ends have such ability.
 * Launch the Remote .NET Adapter Server. The .NET Server resources can be found under `Deployment_DotNet_Server`. Run the `DotNetServers.bat` script. The script runs the two instances of the .NET Server (one for the Remote Metadata Adapter and the other for the Remote Data Adapter).
-* Alternatively, run the `DotNetCustomServer.bat` script under the `Deployment_DotNet_Server(custom)` directory. The script runs the DotNetStockListDemoLauncher_N2.exe Custom Launcher, which hosts both the Remote Data Adapter and the Remote Metadata Adapter for the .NET Stock-List Demo.
+* Alternatively, run the `DotNetCustomServer.bat` script under the `Deployment_DotNet_Server(custom)` directory. The script runs the DotNetStockListDemoLauncher.exe Custom Launcher, which hosts both the Remote Data Adapter and the Remote Metadata Adapter for the .NET Stock-List Demo.
 * Launch Lightstreamer Server. The Server startup will complete only after a successful connection between the Proxy Adapters and the Remote Adapters.
 * Test the Adapter, launching one of the clients listed in [Clients Using This Adapter](https://github.com/Lightstreamer/Lightstreamer-example-StockList-adapter-dotnet#clients-using-this-adapter).
     * To make the Stock-List Demo front-end pages consult the newly installed Adapter Set, you need to modify the front-end pages and set the required Adapter Set name to STOCKLISTDEMO_REMOTE when creating the LightstreamerClient instance. So a line like this:<BR/>
@@ -68,17 +68,17 @@ On the other hand, two different examples of manual launch of the remote process
 
 ### Build the .NET Stock-List Demo Data Adapter
 
-To build your own version of `DotNetStockListDemo_N2.dll`, instead of using the one provided in the `deploy.zip` file from the [Install](https://github.com/Lightstreamer/Lightstreamer-example-StockList-adapter-dotnet#install) section above, follow these steps:
+To build your own version of `DotNetStockListDemo.dll`, instead of using the one provided in the `deploy.zip` file from the [Install](https://github.com/Lightstreamer/Lightstreamer-example-StockList-adapter-dotnet#install) section above, follow these steps:
 * Download this project.
-* Create a project for a library target and name it "DotNetStockListDemo_N2",
+* Create a project for a library target and name it "DotNetStockListDemo",
 * Include in the project the sources `src/src_data_adapter`.
-* Get the Lightstreamer .NET Adapter Server library `DotNetAdapter_N2.dll` file from the `DOCS-SDKs/sdk_adapter_dotnet/lib` folder of the [latest Lightstreamer distribution](http://download.lightstreamer.com/#current), and copy it into the `lib` directory.
-* Include in the project the references to `DotNetAdapter_N2.dll` from the `lib` folder.
+* Get the Lightstreamer .NET Adapter Server library `DotNetAdapter.dll` file from the `DOCS-SDKs/sdk_adapter_dotnet/lib` folder of the [latest Lightstreamer distribution](http://download.lightstreamer.com/#current), and copy it into the `lib` directory.
+* Include in the project the references to `DotNetAdapter.dll` from the `lib` folder.
 * Build Solution
 
 ### Build the Stand-Alone Launcher
 To build your own version of the Stand-Alone Launcher, follow these steps:
-* Create a project for a console application target and name it "DotNetStockListDemoLauncher_N2".
+* Create a project for a console application target and name it "DotNetStockListDemoLauncher".
 * Include in the project the source `src/src_standalone_launcher`
 * Include references to the Lightstreamer .NET Adapter Server library binaries (see above) and .NET Stock-List Demo Data Adapter binaries you have built in the previous step. 
 * Make sure that the entry point of the executable is the ServerMain class.
@@ -105,5 +105,6 @@ To build your own version of the Stand-Alone Launcher, follow these steps:
 
 ## Lightstreamer Compatibility Notes
 
-* Compatible with Lightstreamer SDK for .NET Adapters version 1.9.
+* Compatible with Lightstreamer SDK for .NET Adapters version 1.10.
+* For instructions compatible with Lightstreamer SDK for .NET Adapters version 1.9, please refer to [this tag](https://github.com/Lightstreamer/Lightstreamer-example-StockList-adapter-dotnet/releases/tag/for_version_1.9).
 * For source code of this example compatible with Lightstreamer SDK for .NET Adapters version 1.7, please refer to [this tree branch](https://github.com/Lightstreamer/Lightstreamer-example-StockList-adapter-dotnet/tree/2b4cf6edff83b32a22fd0816863daffe3634fc74).
