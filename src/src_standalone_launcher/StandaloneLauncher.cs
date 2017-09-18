@@ -235,19 +235,38 @@ namespace Lightstreamer.Adapters.StockListDemo {
         }
 
 		public bool handleIOException(Exception exception) {
-			_log.Error("Connection to Lightstreamer Server closed");
-            _closed = true;
+            lock (this)
+            {
+                if (_closed)
+                {
+                    return false;
+                }
+                else
+                {
+                    _log.Error("Connection to Lightstreamer Server closed");
+                    _closed = true;
+                }
+            }
             _server.Close();
-			System.Environment.Exit(0);
+            System.Environment.Exit(0);
             return false;
 		}
 
 		public bool handleException(Exception exception) {
-            if (! _closed) {
-			    _log.Error("Caught exception: " + exception.Message, exception);
-                _server.Close();
-			    System.Environment.Exit(1);
+            lock (this)
+            {
+                if (_closed)
+                {
+                    return false;
+                }
+                else
+                {
+                    _log.Error("Caught exception: " + exception.Message, exception);
+                    _closed = true;
+                }
             }
+            _server.Close();
+            System.Environment.Exit(1);
             return false;
 		}
 
