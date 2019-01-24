@@ -56,7 +56,7 @@ should become like this:<BR/>
 `  sharingClient.connectionSharing.enableSharing("RemoteStockListConnection","ls/","SHARE_SESSION", true);`<BR/>
 The Stock-List Demo web front-end is now ready to be opened. The front-end will now get data from the newly installed Adapter Set.
 
-In case of need, the .NET StockList Demo Launcher prints on the log a help page if run with the following syntax: "DotNetServer /help".
+In case of need, the .NET StockList Demo Launcher prints on the log a help page if run with the following syntax: `dotnet TestAdapter.dll /help`.
 
 Please note that the .NET Remote Adapters connects to Proxy Adapters, not vice versa.
 
