@@ -66,14 +66,14 @@ Please note that the .NET Remote Adapters connects to Proxy Adapters, not vice v
 
 To build your own version of `DotNetStockListDataAdapter.dll`, instead of using the one provided in the `deploy.zip` file from the [Install](https://github.com/Lightstreamer/Lightstreamer-example-StockList-adapter-dotnet#install) section above, follow these steps:
 * Download this project.
-* Create a project for a library target and name it "DotNetStockListDataAdapter",
+* Create a project for ".NET Core library" template and name it "DotNetStockListDataAdapter".
 * Include in the project the sources `src/src_data_adapter`.
 * Get the binaries files of the Lightstreamer .NET Standard Adapters Server library from NuGet [Lightstreamer.DotNetStandard.Adapters](https://www.nuget.org/packages/Lightstreamer.DotNetStandard.Adapters/), copy it into the `lib` directory and add it as a reference for the project; or more simply, use directly the "NuGet Package Manager" looking for 'Lightstreamer Adapters' and intalling the Lightstreamer.DotNetStandard.Adapters package.
 * Build Solution
 
 ### Build the Stand-Alone Launcher
 To build your own version of the Stand-Alone Launcher, follow these steps:
-* Create a project for a console application target and name it "TestAdapter".
+* Create a project for ".NET Core App Console" template and name it "TestAdapter".
 * Include in the project the source `src/src_standalone_launcher`
 * Include reference to the .NET Stock-List Demo Data Adapter binaries you have built in the previous step. 
 * Get the binaries files of the Lightstreamer .NET Standard Adapters Server library from NuGet [Lightstreamer.DotNetStandard.Adapters](https://www.nuget.org/packages/Lightstreamer.DotNetStandard.Adapters/), copy it into the `lib` directory and add it as a reference for the project; or more simply, use directly the "NuGet Package Manager" looking for 'Lightstreamer Adapters' and intalling the Lightstreamer.DotNetStandard.Adapters package.
