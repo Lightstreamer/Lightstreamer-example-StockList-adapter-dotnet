@@ -1,4 +1,4 @@
-#region License
+﻿#region License
 /*
  * Copyright (c) Lightstreamer Srl
  *
@@ -23,113 +23,134 @@ using System.Threading;
 using Lightstreamer.Interfaces.Data;
 using Lightstreamer.Adapters.StockListDemo.Feed;
 
-namespace Lightstreamer.Adapters.StockListDemo.Data {
+namespace Lightstreamer.Adapters.StockListDemo.Data
+{
 
-	/// <summary>
-	/// This Data Adapter accepts a limited set of item names (the names starting
-	/// with "item") and listens to a (simulated) stock quotes feed, waiting for
-	/// update events. The events pertaining to the currently subscribed items
-	/// are then forwarded to Lightstreamer.
-	/// This example demonstrates how a Data Adapter could interoperate with
-	/// a broadcast feed, which sends data for all items. Many other types of feeds
-	/// may exist, with very different behaviours.
-	/// </summary>
-	public class StockListDemoAdapter : IDataProvider, IExternalFeedListener {
+    /// <summary>
+    /// This Data Adapter accepts a limited set of item names (the names starting
+    /// with "item") and listens to a (simulated) stock quotes feed, waiting for
+    /// update events. The events pertaining to the currently subscribed items
+    /// are then forwarded to Lightstreamer.
+    /// This example demonstrates how a Data Adapter could interoperate with
+    /// a broadcast feed, which sends data for all items. Many other types of feeds
+    /// may exist, with very different behaviours.
+    /// </summary>
+    public class StockListDemoAdapter : IDataProvider, IExternalFeedListener
+    {
 
-		private IDictionary _subscribedItems;
-		private ExternalFeedSimulator _myFeed;
+        private IDictionary _subscribedItems;
+        private ExternalFeedSimulator _myFeed;
 
-		private IItemEventListener _listener;
+        private IItemEventListener _listener;
 
-		public StockListDemoAdapter() {
-			_subscribedItems= new Hashtable();
-			
-			_myFeed= new ExternalFeedSimulator();
-		}
-		
-		// ////////////////////////////////////////////////////////////////////////
-		// IDataProvider methos
+        public StockListDemoAdapter()
+        {
+            _subscribedItems = new Hashtable();
 
-		public void Init(IDictionary parameters, string configFile) {
-			_myFeed.SetFeedListener(this);
-			_myFeed.Start();
-		}
+            _myFeed = new ExternalFeedSimulator();
+        }
 
-		public void SetListener(IItemEventListener eventListener) {
-			_listener= eventListener;
-		}
+        // ////////////////////////////////////////////////////////////////////////
+        // IDataProvider methos
 
-		public void Subscribe(string itemName) {
-			if (!itemName.StartsWith("item")) 
-				throw new SubscriptionException("Unexpected item: " + itemName);
+        public void Init(IDictionary parameters, string configFile)
+        {
+            _myFeed.SetFeedListener(this);
+            _myFeed.Start();
+        }
 
-			lock (_subscribedItems) {
-				if (_subscribedItems.Contains(itemName)) return;
+        public void SetListener(IItemEventListener eventListener)
+        {
+            _listener = eventListener;
+        }
+
+        public void Subscribe(string itemName)
+        {
+            if (!itemName.StartsWith("item"))
+                throw new SubscriptionException("Unexpected item: " + itemName);
+
+            lock (_subscribedItems)
+            {
+                if (_subscribedItems.Contains(itemName)) return;
 
                 SubscriptionInfo si = new SubscriptionInfo(false, true);
-				_subscribedItems[itemName]= si;
-			}
-			_myFeed.SendCurrentValues(itemName);
-		}
-		
-		public void Unsubscribe(string itemName) {
-			if (!itemName.StartsWith("item")) 
-				throw new SubscriptionException("Unexpected item: " + itemName);
+                _subscribedItems[itemName] = si;
+            }
+            _myFeed.SendCurrentValues(itemName);
+        }
 
-			lock (_subscribedItems) {
+        public void Unsubscribe(string itemName)
+        {
+            if (!itemName.StartsWith("item"))
+                throw new SubscriptionException("Unexpected item: " + itemName);
+
+            lock (_subscribedItems)
+            {
                 SubscriptionInfo si = (SubscriptionInfo)_subscribedItems[itemName];
-                if (si != null) {
+                if (si != null)
+                {
                     _subscribedItems.Remove(itemName);
-                    lock (si) {
+                    lock (si)
+                    {
                         si.stopSubscription();
                     }
                 }
-			}
-		}
+            }
+        }
 
-		public bool IsSnapshotAvailable(string itemName) {
-			if (!itemName.StartsWith("item")) 
-				throw new SubscriptionException("Unexpected item: " + itemName);
+        public bool IsSnapshotAvailable(string itemName)
+        {
+            if (!itemName.StartsWith("item"))
+                throw new SubscriptionException("Unexpected item: " + itemName);
 
-			return true;
-		}
-	
-		// never used in the demo, just showing the feature
-		public void ClearStatus() {
-			lock (_subscribedItems) {
-				foreach (string itemName in _subscribedItems.Keys) {
-					_listener.ClearSnapshot(itemName);
-				}
-			}
-		}
+            return true;
+        }
 
-		// ////////////////////////////////////////////////////////////////////////
-		// IExternalFeedListener methods
+        // never used in the demo, just showing the feature
+        public void ClearStatus()
+        {
+            lock (_subscribedItems)
+            {
+                foreach (string itemName in _subscribedItems.Keys)
+                {
+                    _listener.ClearSnapshot(itemName);
+                }
+            }
+        }
 
-		public void OnEvent(string itemName, 
-			IDictionary currentValues,
-			bool isSnapshot) {
+        // ////////////////////////////////////////////////////////////////////////
+        // IExternalFeedListener methods
+
+        public void OnEvent(string itemName,
+            IDictionary currentValues,
+            bool isSnapshot)
+        {
 
             SubscriptionInfo si;
-			lock (_subscribedItems) {
-				if (!_subscribedItems.Contains(itemName)) return;
+            lock (_subscribedItems)
+            {
+                if (!_subscribedItems.Contains(itemName)) return;
 
-				si = (SubscriptionInfo) _subscribedItems[itemName];
+                si = (SubscriptionInfo)_subscribedItems[itemName];
             }
 
-            lock (si) {
+            lock (si)
+            {
                 bool started = si.getSnapshotReceived();
-				if (!started) {
-					if (!isSnapshot) 
-						return;
+                if (!started)
+                {
+                    if (!isSnapshot)
+                        return;
 
                     si.setSnapshotReceived();
-				} 
-				else {
-					if (isSnapshot) {
-						isSnapshot = false;
-					}
-				}
+                }
+                else
+                {
+                    if (isSnapshot)
+                    {
+                        isSnapshot = false;
+                    }
+                }
 
                 // We have to ensure that Update cannot be called after
                 // Unsubscribe, so we need to hold the _subscribedItems lock;
@@ -142,11 +163,12 @@ namespace Lightstreamer.Adapters.StockListDemo.Data {
                 // related with the first Subscribe call;
                 // this case still leads to a perfectly consistent update flow,
                 // in this scenario, so no checks are inserted to detect the case
-                if (si.isStillSubscribed()) {
+                if (si.isStillSubscribed())
+                {
                     _listener.Update(itemName, currentValues, isSnapshot);
                 }
-			}
-		}
+            }
+        }
 
         // Manages the current state of the subscription 
         // for a single Item.
@@ -181,6 +203,6 @@ namespace Lightstreamer.Adapters.StockListDemo.Data {
                 this.stillSubscribed = false;
             }
         }
-	}
+    }
 
 }
