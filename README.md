@@ -24,12 +24,12 @@ The application is divided into 4 main classes.
 
 * `StockList.cs`: this is a C#/.NET porting of the [Lightstreamer - Stock-List Demo - Java Adapter](https://github.com/Lightstreamer/Lightstreamer-example-StockList-adapter-java). It inherits from the *IDataProvider* interface and calls back Lightstreamer through the *IItemEventListener* interface. Use it as a starting point to implement your custom data adapter.
 * `ExternalFeed.cs`: this component simulates an external data feed that supplies quote values for all the stocks needed for the demos.
-* `StandaloneLauncher.cs`: this is a stand-alone executable that launches both the Data Adapter and the Metadata Adapter for the .NET Stock-List Demo example. It redirects sockets connections from Lightstreamer to the .NET Servers implemented in the LS .NET SDK library and does not rely on the .NET Server wrapper provided.
-* `Log4NetLoggerProviderWrapper.cs`: used by the stand-alone executable to forward the log produced by the LS .NET SDK library to the application logging system, based on NLog.<br>
+* `StandaloneLauncher.cs`: this is a stand-alone executable that launches both the Data Adapter and the Metadata Adapter for the .NET Stock-List Demo example. It redirects sockets connections from Lightstreamer to the .NET Servers implemented in the LS .NET Standard Adapter SDK library.
+* `Log4NetLoggerProviderWrapper.cs`: used by the stand-alone executable to forward the log produced by the LS .NET Standard Adapter SDK library to the application logging system, based on NLog.<br>
 
 Check out the sources for further explanations.
 
-The Metadata Adapter functionalities are absolved by the `LiteralBasedProvider`, a simple Metadata Adapter already included in the .NET Adapter SDK binaries, which is enough for all demo clients.
+The Metadata Adapter functionalities are absolved by the `LiteralBasedProvider`, a simple Metadata Adapter already included in the .NET Standard Adapter SDK binaries, which is enough for all demo clients.
 See also [Lightstreamer - Reusable Metadata Adapters - .NET Adapter](https://github.com/Lightstreamer/Lightstreamer-example-ReusableMetadata-adapter-dotnet).
 
 <!-- END DESCRIPTION lightstreamer-example-stocklist-adapter-dotnet -->
@@ -55,8 +55,6 @@ So a line like this:<BR/>
 should become like this:<BR/>
 `  sharingClient.connectionSharing.enableSharing("RemoteStockListConnection","ls/","SHARE_SESSION", true);`<BR/>
 The Stock-List Demo web front-end is now ready to be opened. The front-end will now get data from the newly installed Adapter Set.
-
-In case of need, the .NET StockList Demo Launcher prints on the log a help page if run with the following syntax: `dotnet TestAdapter.dll /help`.
 
 Please note that the .NET Remote Adapters connects to Proxy Adapters, not vice versa.
 
