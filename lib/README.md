@@ -1,3 +1,3 @@
 This folder should contain the library files needed to build the Adapters.<br>
-Please drop here the DotNetAdapter.dll and DotNetAdapter.pdb files from the Lightstreamer .NET Adapter Library, you can find it in LS_HOME/DOCS-SDKs/sdk_adapter_dotnet/lib.<br>
-To support logging facilities, you should copy here the log4net.dll file, too.
+Please drop here the binaries files of the Lightstreamer .NET Standard Adapters Server library from NuGet [Lightstreamer.DotNetStandard.Adapters](https://www.nuget.org/packages/Lightstreamer.DotNetStandard.Adapters/), or more simply, use directly the Visual Studio "NuGet Package Manager" facility, looking for 'Lightstreamer Adapters' and intalling the Lightstreamer.DotNetStandard.Adapters package.<br>
+To support logging facilities, you should copy here also the the binaries files of the [NLog library from NuGet](https://www.nuget.org/packages/NLog/); or more simply, use directly the "NuGet Package Manager" looking for 'NLog' and intalling the NLog package.
