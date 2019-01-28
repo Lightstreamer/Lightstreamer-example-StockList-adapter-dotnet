@@ -18,7 +18,7 @@ You'll find more details about the *SDK for .NET Standard Adapters* at [.NET Int
 
 ### Dig the Code
 
-This project includes the implementation of the [IDataProvider](http://www.lightstreamer.com/docs/adapter_dotnet_api/Lightstreamer_Interfaces_Data_IDataProvider.html) interface and the [IMetadataProvider](http://www.lightstreamer.com/docs/adapter_dotnet_api/Lightstreamer_Interfaces_Metadata_IMetadataProvider.html) interface for the *Stock-List Demo*. 
+This project includes the implementation of the IDataProvider interface and the IMetadataProvider interface for the *Stock-List Demo*. 
 
 The application is divided into 4 main classes.
 
@@ -82,7 +82,7 @@ To build your own version of the Stand-Alone Launcher, follow these steps:
 ## See Also
 
 * [Adapter Remoting Infrastructure Network Protocol Specification](http://www.lightstreamer.com/docs/adapter_generic_base/ARI%20Protocol.pdf)
-* [.NET Adapter API Reference](http://www.lightstreamer.com/docs/adapter_dotnet_api/frames.html)
+* [.NET Adapter API Reference](https://lightstreamer.com/api/ls-dotnetstandard-adapter/latest/)
 
 ### Clients Using This Adapter
 
