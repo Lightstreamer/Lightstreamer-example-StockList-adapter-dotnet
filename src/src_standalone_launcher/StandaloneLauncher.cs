@@ -128,7 +128,7 @@ namespace TestAdapter
                     server.AdapterParams = parameters;
                     // server.AdapterConfig not needed by LiteralBasedProvider
                     if (parameters["name"] != null) server.Name = "Test:LBP";
-                    Console.WriteLine("Remote Metadata Adapter initialized");
+                    nLog.Debug("Remote Metadata Adapter initialized");
 
                     ServerStarter starter = new ServerStarter(host, rrPortMD, -1);
                     starter.Launch(server);
@@ -182,6 +182,8 @@ namespace TestAdapter
 
     public class ServerStarter : IExceptionHandler
     {
+        private static Logger nLog = LogManager.GetCurrentClassLogger();
+
         private Server _server;
         private bool _closed;
 
@@ -212,25 +214,25 @@ namespace TestAdapter
 
             do
             {
-                Console.WriteLine("Connecting...");
+                nLog.Info("Connecting...");
 
                 try
                 {
-                    Console.WriteLine("Opening connection on port " + _rrPort + "...");
+                    nLog.Info("Opening connection on port " + _rrPort + "...");
                     _rrSocket = new TcpClient(_host, _rrPort);
                     if (_notifPort >= 0)
                     {
-                        Console.WriteLine("Opening connection on port " + _notifPort + "...");
+                        nLog.Info("Opening connection on port " + _notifPort + "...");
                         _notifSocket = new TcpClient(_host, _notifPort);
                     }
 
-                    Console.WriteLine("Connected");
+                    nLog.Info("Connected");
 
                     break;
                 }
                 catch (SocketException)
                 {
-                    Console.WriteLine("Connection failed, retrying in 10 seconds...");
+                    nLog.Info("Connection failed, retrying in 10 seconds...");
 
                     Thread.Sleep(10000);
                 }
@@ -254,7 +256,7 @@ namespace TestAdapter
                 }
                 else
                 {
-                    Console.WriteLine("Connection to Lightstreamer Server closed");
+                    nLog.Info("Connection to Lightstreamer Server closed");
                     _closed = true;
                 }
             }
@@ -273,7 +275,7 @@ namespace TestAdapter
                 }
                 else
                 {
-                    Console.WriteLine("Caught exception: " + exception.Message, exception);
+                    nLog.Info("Caught exception: " + exception.Message, exception);
                     _closed = true;
                 }
             }
