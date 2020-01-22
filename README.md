@@ -24,8 +24,8 @@ The application is divided into 4 main classes.
 
 * `StockList.cs`: this is a C#/.NET porting of the [Lightstreamer - Stock-List Demo - Java Adapter](https://github.com/Lightstreamer/Lightstreamer-example-StockList-adapter-java). It inherits from the *IDataProvider* interface and calls back Lightstreamer through the *IItemEventListener* interface. Use it as a starting point to implement your custom data adapter.
 * `ExternalFeed.cs`: this component simulates an external data feed that supplies quote values for all the stocks needed for the demos.
-* `StandaloneLauncher.cs`: this is a stand-alone executable that launches both the Data Adapter and the Metadata Adapter for the .NET Stock-List Demo example. It redirects sockets connections from Lightstreamer to the .NET Servers implemented in the LS .NET Standard Adapter SDK library.
-* `Log4NetLoggerProviderWrapper.cs`: used by the stand-alone executable to forward the log produced by the LS .NET Standard Adapter SDK library to the application logging system, based on NLog.<br>
+* `StandaloneLauncher.cs`: this is the Remote Server, that is, stand-alone executable that launches both the Data Adapter and the Metadata Adapter for the .NET Stock-List Demo example. It redirects sockets connections from Lightstreamer to the .NET Servers implemented in the LS .NET Standard Adapter SDK library.
+* `Log4NetLoggerProviderWrapper.cs`: used by the Remote Server to forward the log produced by the LS .NET Standard Adapter SDK library to the application logging system, based on NLog.<br>
 
 Check out the sources for further explanations.
 
@@ -41,7 +41,7 @@ If you want to install a version of this demo in your local Lightstreamer server
 * Get the `deploy.zip` file of the [latest release](https://github.com/Lightstreamer/Lightstreamer-example-StockList-adapter-dotnet/releases) and unzip it
 * Plug the Proxy Data Adapter and the Proxy MetaData Adapter into the Server: go to the `Deployment_LS` folder and copy the `DotNetStockList` directory and all of its files to the `adapters` folder of your Lightstreamer Server installation.
 * Alternatively, you may plug the **robust** versions of the Proxy Data Adapter and the Proxy MetaData Adapter: go to the `Deployment_LS(robust)` folder and copy the `DotNetStockList` directory and all of its files into `adapters`. This Adapter Set demonstrates the provided "robust" versions of the standard Proxy Data and Metadata Adapters. The robust Proxy Data Adapter can handle the case in which a Remote Data Adapter is missing or fails, by suspending the data flow and trying to connect to a new Remote Data Adapter instance. The robust Proxy Metadata Adapter can handle the case in which a Remote Metadata Adapter is missing or fails, by temporarily denying all client requests and trying to connect to a new Remote Data Adapter instance. See the comments embedded in the generic `adapters.xml` file template, `DOCS-SDKs/adapter_remoting_infrastructure/doc/adapter_robust_conf_template/adapters.xml`, for details. Note that this extended Adapter Set also requires that the client is able to manage the case of missing data. Currently, only the [Lightstreamer - Stock-List Demo - HTML Client](https://github.com/Lightstreamer/Lightstreamer-example-StockList-client-javascript#stocklist-demo) and the [Lightstreamer - Framed Stock-List Demo - HTML Client](https://github.com/Lightstreamer/Lightstreamer-example-StockList-client-javascript#framed-stocklist-demo) front-ends have such ability.
-* Run the `DotNetStockListDemoLauncher.bat` script under the `Deployment_DotNet_Adapters` directory. The script runs a .NET Core application which hosts both the Remote Data Adapter and the Remote Metadata Adapter for the .NET Stock-List Demo.
+* Run the `DotNetStockListDemoLauncher.bat` script under the `Deployment_DotNet_Adapters` directory. The script runs the Remote Server, that is, a .NET Core application which hosts both the Remote Data Adapter and the Remote Metadata Adapter for the .NET Stock-List Demo.
 * Launch Lightstreamer Server. The Server startup will complete only after a successful connection between the Proxy Adapters and the Remote Adapters.
 * Test the Adapter, launching one of the clients listed in [Clients Using This Adapter](https://github.com/Lightstreamer/Lightstreamer-example-StockList-adapter-dotnet#clients-using-this-adapter).
     * To make the Stock-List Demo front-end pages consult the newly installed Adapter Set, you need to modify the front-end pages and set the required Adapter Set name to STOCKLISTDEMO_REMOTE when creating the LightstreamerClient instance. So a line like this:<BR/>
@@ -58,6 +58,50 @@ The Stock-List Demo web front-end is now ready to be opened. The front-end will 
 
 Please note that the .NET Remote Adapters connects to Proxy Adapters, not vice versa.
 
+### Available improvements
+
+#### Add Encryption
+
+Each TCP connection from a Remote Adapter can be encrypted via TLS. To have the Proxy Adapters accept only TLS connections, a suitable configuration should be added in adapters.xml in the <data_provider> block, like this:
+```xml
+  <data_provider>
+    ...
+    <param name="tls">Y</param>
+    <param name="tls.keystore.type">JKS</param>
+    <param name="tls.keystore.keystore_file">./myserver.keystore</param>
+    <param name="tls.keystore.keystore_password.type">text</param>
+    <param name="tls.keystore.keystore_password">xxxxxxxxxx</param>
+    ...
+  </data_provider>
+```
+and the same should be added in the <metadata_provider> block.
+
+This requires that a suitable keystore with a valid certificate is provided. See the configuration details in `DOCS-SDKs/adapter_remoting_infrastructure/doc/adapter_robust_conf_template/adapters.xml`.
+NOTE: For your experiments, you can configure the adapters.xml to use the same JKS keystore "myserver.keystore" provided out of the box in the Lightstreamer distribution. Since this keystore contains an invalid certificate, remember to configure your local environment to "trust" it.
+The sample Remote Server provided in the `Deployment_DotNet_Adapters` directory in `deploy.zip` is already predisposed for TLS connection on all ports. You can rerun the demo with the new configuration after modifying DotNetStockListDemoLauncher.bat to run a command like this:
+  `dotnet TestAdapter.dll /host xxxxxxxx /tls /data_rrport 6661 /data_notifport 6662 /metadata_rrport 6663 max_bandwidth=40 max_frequency=3 buffer_size=30`
+where the same hostname supported by the provided certificate must be supplied.
+
+#### Add Authentication
+
+Each TCP connection from a Remote Adapter can be subject to Remote Adapter authentication through the submission of user/password credentials. To enforce credential check on the Proxy Adapters, a suitable configuration should be added in adapters.xml in the <data_provider> block, like this:
+```xml
+  <data_provider>
+    ...
+    <param name="auth">Y</param>
+    <param name="auth.credentials.1.user">user1</param>
+    <param name="auth.credentials.1.password">pwd1</param>
+    ...
+  </data_provider>
+```
+and the same should be added in the <metadata_provider> block.
+
+See the configuration details in `DOCS-SDKs/adapter_remoting_infrastructure/doc/adapter_robust_conf_template/adapters.xml`.
+The sample Remote Server provided in the `Deployment_DotNet_Adapters` directory in `deploy.zip` is already predisposed for credential submission on both adapters. You can rerun the demo with the new configuration after modifying DotNetStockListDemoLauncher.bat to run a command like this:
+  `dotnet TestAdapter.dll /host localhost /user user1 /password pwd1 /data_rrport 6661 /data_notifport 6662 /metadata_rrport 6663 max_bandwidth=40 max_frequency=3 buffer_size=30`
+
+Authentication can (and should) be combined with TLS encryption.
+
 ## Build 
 
 ### Build the .NET Stock-List Demo Data Adapter
@@ -69,8 +113,8 @@ To build your own version of `DotNetStockListDataAdapter.dll`, instead of using 
 * Get the binaries files of the Lightstreamer .NET Standard Adapters Server library from NuGet [Lightstreamer.DotNetStandard.Adapters](https://www.nuget.org/packages/Lightstreamer.DotNetStandard.Adapters/), copy it into the `lib` directory and add it as a reference for the project; or more simply, use directly the "NuGet Package Manager" looking for 'Lightstreamer Adapters' and installing the Lightstreamer.DotNetStandard.Adapters package.
 * Build Solution
 
-### Build the Stand-Alone Launcher
-To build your own version of the Stand-Alone Launcher, follow these steps:
+### Build the Stand-Alone Launcher (i.e. Remote Server)
+To build your own version of the Remote Server, follow these steps:
 * Create a project for ".NET Core App Console" template and name it "TestAdapter".
 * Include in the project the source `src/src_standalone_launcher`
 * Include reference to the .NET Stock-List Demo Data Adapter binaries you have built in the previous step. 
@@ -100,5 +144,5 @@ To build your own version of the Stand-Alone Launcher, follow these steps:
 
 ## Lightstreamer Compatibility Notes
 
-* Compatible with Lightstreamer SDK for .NET Standard Adapters version 1.11 or newer.
-* For instructions compatible with Lightstreamer SDK for .NET Adapters version 1.10, please refer to [this tag](https://github.com/Lightstreamer/Lightstreamer-example-StockList-adapter-dotnet/tree/current_1.10).
+* Compatible with Lightstreamer SDK for .NET Standard Adapters version 1.12 and newer.
+* For instructions compatible with Lightstreamer SDK for .NET Adapters version 1.11, please refer to [this tag](https://github.com/Lightstreamer/Lightstreamer-example-StockList-adapter-dotnet/releases/tag/for_standard_1.11).

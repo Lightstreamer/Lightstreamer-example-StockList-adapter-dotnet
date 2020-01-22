@@ -1,11 +1,13 @@
 ﻿using Lightstreamer.DotNet.Server;
 using System;
 using System.Collections;
+using System.Net.Security;
 using System.Net.Sockets;
+using System.Security.Authentication;
 using System.Threading;
 
 using NLog;
-
+using System.IO;
 
 namespace TestAdapter
 {
@@ -22,9 +24,12 @@ namespace TestAdapter
         public const string ARG_HELP_SHORT = "?";
 
         public const string ARG_HOST = "host";
+        public const string ARG_TLS = "tls"; // will use lowercase
         public const string ARG_METADATA_RR_PORT = "metadata_rrport";
         public const string ARG_DATA_RR_PORT = "data_rrport";
         public const string ARG_DATA_NOTIF_PORT = "data_notifport";
+        public const string ARG_USER = "user";
+        public const string ARG_PASSWORD = "password";
         public const string ARG_NAME = "name";
 
         public static void Main(string[] args)
@@ -47,9 +52,12 @@ namespace TestAdapter
 
             IDictionary parameters = new Hashtable();
             string host = null;
+            bool isTls = false;
             int rrPortMD = -1;
             int rrPortD = -1;
             int notifPortD = -1;
+            string username = null;
+            string password = null;
             string name = null;
 
             for (int i = 0; i < args.Length; i++)
@@ -71,6 +79,11 @@ namespace TestAdapter
 
                         nLog.Debug("Found argument: '" + ARG_HOST + "' with value: '" + host + "'");
                     }
+                    else if (arg.Equals(ARG_TLS)) {
+                        isTls = true;
+
+                        nLog.Debug("Found argument: '" + ARG_TLS + "'");
+                    }
                     else if (arg.Equals(ARG_METADATA_RR_PORT))
                     {
                         i++;
@@ -91,6 +104,19 @@ namespace TestAdapter
                         notifPortD = Int32.Parse(args[i]);
 
                         nLog.Debug("Found argument: '" + ARG_DATA_NOTIF_PORT + "' with value: '" + notifPortD + "'");
+                    }
+                    else if (arg.Equals(ARG_USER))
+                    {
+                        i++;
+                        username= args[i];
+
+                        nLog.Debug("Found argument: '" + ARG_USER + "' with value: '" + username + "'");
+                    }
+                    else if (arg.Equals(ARG_PASSWORD)) {
+                        i++;
+                        password= args[i];
+
+                        nLog.Debug("Found argument: '" + ARG_PASSWORD + "' with value: '" + password + "'");
                     }
                     else if (arg.Equals(ARG_NAME))
                     {
@@ -122,15 +148,25 @@ namespace TestAdapter
 
             try
             {
+                if ((username != null) != (password != null))
+                {
+                    throw new Exception("Incomplete setting of /user and /password arguments");
+                }
+
                 { 
                     MetadataProviderServer server = new MetadataProviderServer();
                     server.Adapter = new Lightstreamer.Adapters.Metadata.LiteralBasedProvider();
                     server.AdapterParams = parameters;
                     // server.AdapterConfig not needed by LiteralBasedProvider
                     if (parameters["name"] != null) server.Name = "Test:LBP";
+                    if (username != null)
+                    {
+                        server.RemoteUser = username;
+                        server.RemotePassword = password;
+                    }
                     nLog.Debug("Remote Metadata Adapter initialized");
 
-                    ServerStarter starter = new ServerStarter(host, rrPortMD, -1);
+                    ServerStarter starter = new ServerStarter(host, isTls, rrPortMD, -1);
                     starter.Launch(server);
                 }
 
@@ -140,9 +176,14 @@ namespace TestAdapter
                     // server.AdapterParams not needed by StockListDemoAdapter
                     // server.AdapterConfig not needed by StockListDemoAdapter
                     if (name != null) server.Name = name;
+                    if (username != null)
+                    {
+                        server.RemoteUser = username;
+                        server.RemotePassword = password;
+                    }
                     nLog.Debug("Remote Data Adapter initialized");
 
-                    ServerStarter starter = new ServerStarter(host, rrPortD, notifPortD);
+                    ServerStarter starter = new ServerStarter(host, isTls, rrPortD, notifPortD);
                     starter.Launch(server);
                 }
             }
@@ -158,20 +199,26 @@ namespace TestAdapter
         {
             nLog.Fatal("Lightstreamer StockListDemo .NET Adapter Standalone Server Help");
             nLog.Fatal("Usage: DotNetStockListDemoLauncher");
-            nLog.Fatal("                     [/name <name>] /host <address>");
+            nLog.Fatal("                     [/name <name>]");
+            nLog.Fatal("                     /host <address> [/tls]");
             nLog.Fatal("                     /metadata_rrport <port> /data_rrport <port> /data_notifport <port>");
+            nLog.Fatal("                     [/user <username> /password <password>]");
             nLog.Fatal("                     [\"<param1>=<value1>\" ... \"<paramN>=<valueN>\"]");
             nLog.Fatal("Where: <name>        is the symbolic name for both the adapters (1)");
             nLog.Fatal("       <address>     is the host name or ip address of LS server (2)");
             nLog.Fatal("       <port>        is the tcp port number where LS proxy is listening on (3)");
-            nLog.Fatal("       <paramN>      is the Nth metadata adapter parameter name (4)");
-            nLog.Fatal("       <valueN>      is the value of the Nth metadata adapter parameter (4)");
+            nLog.Fatal("       /tls          if indicated, initiates a TLS-encrypted communication (4)");
+            nLog.Fatal("       <username>    is sent, along with <password>, to the LS proxy (4)");
+            nLog.Fatal("       <paramN>      is the Nth metadata adapter parameter name (5)");
+            nLog.Fatal("       <valueN>      is the value of the Nth metadata adapter parameter (5)");
             nLog.Fatal("Notes: (1) The adapter name is optional, if it is not given the adapter will be");
             nLog.Fatal("           assigned a progressive number name like \"#1\", \"#2\" and so on");
             nLog.Fatal("       (2) The communication will be from here to LS, not viceversa");
             nLog.Fatal("       (3) The notification port is necessary for a Data Adapter, while it is");
             nLog.Fatal("           not needed for a Metadata Adapter");
-            nLog.Fatal("       (4) The parameters name/value pairs will be passed to the LiteralBasedProvider");
+            nLog.Fatal("       (4) TLS communication and user-password submission may or may not be needed");
+            nLog.Fatal("           depending on the LS Proxy Adapter configuration");
+            nLog.Fatal("       (5) The parameters name/value pairs will be passed to the LiteralBasedProvider");
             nLog.Fatal("           Metadata Adapter as a Hashtable in the \"parameters\" Init() argument");
             nLog.Fatal("           The StockListDemo Data Adapter requires no parameters");
             nLog.Fatal("Aborting...");
@@ -188,12 +235,14 @@ namespace TestAdapter
         private bool _closed;
 
         private string _host;
+        private bool _isTls;
         private int _rrPort;
         private int _notifPort;
 
-        public ServerStarter(string host, int rrPort, int notifPort)
+        public ServerStarter(string host, bool isTls, int rrPort, int notifPort)
         {
             _host = host;
+            _isTls = isTls;
             _rrPort = rrPort;
             _notifPort = notifPort;
         }
@@ -218,11 +267,11 @@ namespace TestAdapter
 
                 try
                 {
-                    nLog.Info("Opening connection on port " + _rrPort + "...");
+                    nLog.Info("Opening connection on port " + _rrPort + (_isTls ? " with TLS" : "") + "...");
                     _rrSocket = new TcpClient(_host, _rrPort);
                     if (_notifPort >= 0)
                     {
-                        nLog.Info("Opening connection on port " + _notifPort + "...");
+                        nLog.Info("Opening connection on port " + _notifPort + (_isTls ? " with TLS" : "") + "...");
                         _notifSocket = new TcpClient(_host, _notifPort);
                     }
 
@@ -239,11 +288,42 @@ namespace TestAdapter
 
             } while (true);
 
-            _server.RequestStream = _rrSocket.GetStream();
-            _server.ReplyStream = _rrSocket.GetStream();
-            if (_notifSocket != null) _server.NotifyStream = _notifSocket.GetStream();
+            try
+            {
+                Stream _rrStream = GetProperStream(_rrSocket);
+                _server.RequestStream = _rrStream;
+                _server.ReplyStream = _rrStream;
+
+                if (_notifSocket != null)
+                {
+                    Stream _notifStream = GetProperStream(_notifSocket);
+                    _server.NotifyStream = _notifStream;
+                }
+            }
+            catch (AuthenticationException e)
+            {
+                nLog.Error("TLS Authentication failed");
+                throw e;
+            }
 
             _server.Start();
+        }
+
+        private Stream GetProperStream(TcpClient socket)
+        {
+            Stream _stream = socket.GetStream();
+            if (_isTls)
+            {
+                SslStream _sslStream = new SslStream(_stream);
+                _sslStream.AuthenticateAsClient(_host);
+
+                nLog.Info("TLS Authentication done");
+                return _sslStream;
+            }
+            else
+            {
+                return _stream;
+            }
         }
 
         public bool handleIOException(Exception exception)
