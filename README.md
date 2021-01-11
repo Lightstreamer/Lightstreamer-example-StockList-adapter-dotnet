@@ -8,13 +8,14 @@ This project contains the source code and all the resources needed to install a 
 As an example of [Clients Using This Adapter](https://github.com/Lightstreamer/Lightstreamer-example-StockList-adapter-dotnet#clients-using-this-adapter), you may refer to the [Lightstreamer - Basic Stock-List Demo - HTML Client](https://github.com/Lightstreamer/Lightstreamer-example-StockList-client-javascript#basic-stock-list-demo---html-client) and view the corresponding [Live Demo](http://demos.lightstreamer.com/StockListDemo_Basic).
 
 ## Details
+
 Lightstreamer Server exposes native Java Adapter interfaces. The .NET interfaces are added through the [Lightstreamer Adapter Remoting Infrastructure (**ARI**)](https://lightstreamer.com/api/ls-generic-adapter/latest/ARI%20Protocol.pdf).
 
 *The Architecture of Adapter Remoting Infrastructure for .NET.*
 
 ![General Architecture](generalarchitecture_new.png)
 
-You'll find more details about the *SDK for .NET Standard Adapters* at [.NET Interfaces](https://github.com/Lightstreamer/Lightstreamer-example-HelloWorld-adapter-dotnet/blob/master/README.md#net-interfaces) in the [Lightstreamer - "Hello World" Tutorial - .NET Adapter](https://github.com/Lightstreamer/Lightstreamer-example-HelloWorld-adapter-dotnet) project.
+You'll find more details about the *SDK for .NET Standard Adapters* at *.NET Interfaces* in the [Lightstreamer - "Hello World" Tutorial - .NET Adapter](https://github.com/Lightstreamer/Lightstreamer-example-HelloWorld-adapter-dotnet/blob/master/README.md#net-interfaces) project.
 
 ### Dig the Code
 
@@ -29,8 +30,8 @@ The application is divided into 4 main classes.
 
 Check out the sources for further explanations.
 
-The Metadata Adapter functionalities are absolved by the `LiteralBasedProvider`, a simple Metadata Adapter already included in the .NET Standard Adapter SDK binaries, which is enough for all demo clients.
-See also [Lightstreamer - Reusable Metadata Adapters - .NET Adapter](https://github.com/Lightstreamer/Lightstreamer-example-ReusableMetadata-adapter-dotnet).
+The Metadata Adapter functionalities are absolved by the `LiteralBasedProvider`, a simple Metadata Adapter already included in the .NET Standard Adapter SDK binaries, which is enough for this demo.
+See also [LiteralBasedProvider Metadata Adapter](https://github.com/Lightstreamer/Lightstreamer-lib-adapter-dotnet-remote#literalbasedprovider).
 
 <!-- END DESCRIPTION lightstreamer-example-stocklist-adapter-dotnet -->
 
@@ -136,8 +137,8 @@ To build your own version of the Remote Server, follow these steps:
 
 <!-- END RELATED_ENTRIES -->
 ### Related Projects
-* [Lightstreamer - Reusable Metadata Adapters - Java Adapter](https://github.com/Lightstreamer/Lightstreamer-example-ReusableMetadata-adapter-java)
-* [Lightstreamer - Reusable Metadata Adapters - .NET Adapter](https://github.com/Lightstreamer/Lightstreamer-example-ReusableMetadata-adapter-dotnet)
+* [LiteralBasedProvider Metadata Adapter - Java](https://github.com/Lightstreamer/Lightstreamer-lib-adapter-java-remote#literalbasedprovider-metadata-adapter)
+* [LiteralBasedProvider Metadata Adapter - .NET](https://github.com/Lightstreamer/Lightstreamer-lib-adapter-dotnet-remote#literalbasedprovider)
 * [Lightstreamer - Portfolio Demo - Java Adapter](https://github.com/Lightstreamer/Lightstreamer-example-Portfolio-adapter-java)
 * [Lightstreamer - Stock-List Demo - Java Adapter](https://github.com/Lightstreamer/Lightstreamer-example-StockList-adapter-java)
 * [Lightstreamer - Stock-List Demo - Java (JMS) Adapter](https://github.com/Lightstreamer/Lightstreamer-example-StockList-adapter-JMS)
