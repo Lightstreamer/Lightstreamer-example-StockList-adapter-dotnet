@@ -34,8 +34,6 @@ namespace TestAdapter
 
         public static void Main(string[] args)
         {
-            if (args.Length == 0) Help();
-
             var config = new NLog.Config.LoggingConfiguration();
 
             var logfile = new NLog.Targets.FileTarget("logfile") { FileName = "TestAdapter.log" };
@@ -45,6 +43,8 @@ namespace TestAdapter
             config.AddRule(LogLevel.Info, LogLevel.Fatal, logfile);
 
             NLog.LogManager.Configuration = config;
+
+            if (args.Length == 0) Help();
 
             nLog.Info("Lightstreamer StockListDemo .NET Adapter Standalone Server starting ...");
 
