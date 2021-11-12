@@ -127,7 +127,7 @@ To build your own version of the Remote Server, follow these steps:
 ## See Also
 
 * [Adapter Remoting Infrastructure Network Protocol Specification](https://lightstreamer.com/api/ls-generic-adapter/latest/ARI%20Protocol.pdf)
-* [.NET Adapter API Reference](https://lightstreamer.com/api/ls-dotnetstandard-adapter/latest/)
+* [.NET Adapter API Reference](https://lightstreamer.com/api/ls-dotnetstandard-adapter/latest/index.html)
 
 ### Clients Using This Adapter
 
