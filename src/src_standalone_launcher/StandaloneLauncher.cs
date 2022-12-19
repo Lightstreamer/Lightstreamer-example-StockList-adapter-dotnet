@@ -267,12 +267,10 @@ namespace TestAdapter
 
                 try
                 {
-                    nLog.Info("Opening connection on port " + _rrPort + (_isTls ? " with TLS" : "") + "...");
-                    _rrSocket = new TcpClient(_host, _rrPort);
+                    _rrSocket = CreateSocket(_host, _isTls, _rrPort);
                     if (_notifPort >= 0)
                     {
-                        nLog.Info("Opening connection on port " + _notifPort + (_isTls ? " with TLS" : "") + "...");
-                        _notifSocket = new TcpClient(_host, _notifPort);
+                        _notifSocket = CreateSocket(_host, _isTls, _notifPort);
                     }
 
                     nLog.Info("Connected");
@@ -290,13 +288,13 @@ namespace TestAdapter
 
             try
             {
-                Stream _rrStream = GetProperStream(_rrSocket);
+                Stream _rrStream = GetProperStream(_rrSocket, _rrPort);
                 _server.RequestStream = _rrStream;
                 _server.ReplyStream = _rrStream;
 
                 if (_notifSocket != null)
                 {
-                    Stream _notifStream = GetProperStream(_notifSocket);
+                    Stream _notifStream = GetProperStream(_notifSocket, _notifPort);
                     _server.NotifyStream = _notifStream;
                 }
             }
@@ -309,15 +307,35 @@ namespace TestAdapter
             _server.Start();
         }
 
-        private Stream GetProperStream(TcpClient socket)
+        private static TcpClient CreateSocket(string host, bool isTls, int port)
+        {
+            nLog.Info("Opening connection on port " + port + (isTls ? " with TLS" : "") + "...");
+            TcpClient s = null;
+            try {
+                s = new TcpClient(host, port);
+            } finally { 
+                if (s != null) {
+                    nLog.Info("Connection on port " + port + " opened");
+                } else {
+                    nLog.Info("Connection on port " + port + " failed");
+                }
+            }
+            return s;
+        }
+
+        private Stream GetProperStream(TcpClient socket, int port)
         {
             Stream _stream = socket.GetStream();
             if (_isTls)
             {
                 SslStream _sslStream = new SslStream(_stream);
-                _sslStream.AuthenticateAsClient(_host);
-
-                nLog.Info("TLS Authentication done");
+                try {
+                    _sslStream.AuthenticateAsClient(_host);
+                    nLog.Info("TLS handshake done on port " + port);
+                } catch (AuthenticationException e) {
+                    nLog.Info("TLS handshake failed on port " + port);
+                    throw e;
+                }
                 return _sslStream;
             }
             else
