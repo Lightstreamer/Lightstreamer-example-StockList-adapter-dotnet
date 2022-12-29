@@ -79,8 +79,8 @@ and the same should be added in the <metadata_provider> block.
 
 This requires that a suitable keystore with a valid certificate is provided. See the configuration details in the [provided template](https://lightstreamer.com/docs/ls-ARI/latest/adapter_robust_conf_template/adapters.xml).
 NOTE: For your experiments, you can configure the adapters.xml to use the same JKS keystore "myserver.keystore" provided out of the box in the Lightstreamer distribution. Since this keystore contains an invalid certificate, remember to configure your local environment to "trust" it.
-The sample Remote Server provided in the `Deployment_DotNet_Adapters` directory in `deploy.zip` is already predisposed for TLS connection on all ports. You can rerun the demo with the new configuration after modifying DotNetStockListDemoLauncher.bat to run a command like this:
-  `dotnet TestAdapter.dll /host xxxxxxxx /tls /data_rrport 6661 /data_notifport 6662 /metadata_rrport 6663 max_bandwidth=40 max_frequency=3 buffer_size=30`
+The sample Remote Server provided in the `Deployment_DotNet_Adapters` directory in `deploy.zip` is already predisposed for TLS connection on all ports. You can rerun the demo with the new configuration after modifying DotNetStockListDemoLauncher.bat to run a command like this:<BR/>
+  `dotnet TestAdapter.dll /host xxxxxxxx /tls /data_rrport 6661 /data_notifport 6662 /metadata_rrport 6663 max_bandwidth=40 max_frequency=3 buffer_size=30`<BR/>
 where the same hostname supported by the provided certificate must be supplied.
 
 #### Add Authentication
@@ -98,8 +98,8 @@ Each TCP connection from a Remote Adapter can be subject to Remote Adapter authe
 and the same should be added in the <metadata_provider> block.
 
 See the configuration details in the [provided template](https://lightstreamer.com/docs/ls-ARI/latest/adapter_robust_conf_template/adapters.xml).
-The sample Remote Server provided in the `Deployment_DotNet_Adapters` directory in `deploy.zip` is already predisposed for credential submission on both adapters. You can rerun the demo with the new configuration after modifying DotNetStockListDemoLauncher.bat to run a command like this:
-  `dotnet TestAdapter.dll /host localhost /user user1 /password pwd1 /data_rrport 6661 /data_notifport 6662 /metadata_rrport 6663 max_bandwidth=40 max_frequency=3 buffer_size=30`
+The sample Remote Server provided in the `Deployment_DotNet_Adapters` directory in `deploy.zip` is already predisposed for credential submission on both adapters. You can rerun the demo with the new configuration after modifying DotNetStockListDemoLauncher.bat to run a command like this:<BR/>
+  `dotnet TestAdapter.dll /host localhost /user user1 /password pwd1 /data_rrport 6661 /data_notifport 6662 /metadata_rrport 6663 max_bandwidth=40 max_frequency=3 buffer_size=30`<BR/>
 
 Authentication can (and should) be combined with TLS encryption.
 
