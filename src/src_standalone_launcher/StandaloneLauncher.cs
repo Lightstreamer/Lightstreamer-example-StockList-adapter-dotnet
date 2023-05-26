@@ -214,8 +214,10 @@ namespace TestAdapter
             nLog.Fatal("Notes: (1) The adapter name is optional, if it is not given the adapter will be");
             nLog.Fatal("           assigned a progressive number name like \"#1\", \"#2\" and so on");
             nLog.Fatal("       (2) The communication will be from here to LS, not viceversa");
-            nLog.Fatal("       (3) The notification port is necessary for a Data Adapter, while it is");
-            nLog.Fatal("           not needed for a Metadata Adapter");
+            nLog.Fatal("       (3) The notification port is necessary for a Data Adapter");
+            nLog.Fatal("           (at least, this is mandatory for Servers earlier than 7.4,");
+            nLog.Fatal("           then it is supported for backward compatibility),");
+            nLog.Fatal("           while it is not needed for a Metadata Adapter");
             nLog.Fatal("       (4) TLS communication and user-password submission may or may not be needed");
             nLog.Fatal("           depending on the LS Proxy Adapter configuration");
             nLog.Fatal("       (5) The parameters name/value pairs will be passed to the LiteralBasedProvider");
